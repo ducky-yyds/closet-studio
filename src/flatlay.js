@@ -1,3 +1,5 @@
+import { DEFAULT_FLATLAY_SERVICE_URL } from './config.js';
+
 const namespace = encodeURIComponent(new URL('../', import.meta.url).pathname);
 const urlKey = `closet-flatlay-url:${namespace}`;
 const tokenKey = `closet-flatlay-access:${namespace}`;
@@ -14,7 +16,7 @@ export function normalizeServiceUrl(value) {
 }
 
 export function getFlatlayConfig() {
-  try{return {url:normalizeServiceUrl(localStorage.getItem(urlKey)||''),token:sessionStorage.getItem(tokenKey)||''};}
+  try{return {url:normalizeServiceUrl(localStorage.getItem(urlKey)??DEFAULT_FLATLAY_SERVICE_URL),token:sessionStorage.getItem(tokenKey)||''};}
   catch{return {url:'',token:''};}
 }
 
@@ -23,7 +25,8 @@ export function setFlatlayConfig({url='',token=''}={}) {
   const access=String(token||'').trim();
   if(access.length>512||/[\r\n]/.test(access))throw new Error('访问口令格式不正确。');
   if(/^sk-[A-Za-z0-9_-]{10,}/.test(access))throw new Error('这里填写代理服务的访问口令。模型 API Key 应放在后端的密钥设置中。');
-  if(normalized)localStorage.setItem(urlKey,normalized);else localStorage.removeItem(urlKey);
+  // An explicit blank URL disconnects even when the site has a default proxy.
+  localStorage.setItem(urlKey,normalized);
   if(access)sessionStorage.setItem(tokenKey,access);else sessionStorage.removeItem(tokenKey);
   return {url:normalized,token:access};
 }

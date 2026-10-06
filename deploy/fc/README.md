@@ -25,7 +25,9 @@ node deploy/fc/deploy.mjs
 node --env-file=.env deploy/fc/deploy.mjs --apply --profile closet-fc
 ```
 
-脚本默认查找 `artifacts/tools/aliyun-cli/aliyun.exe`，其次为 PATH 中的 `aliyun`；可用 `--cli` 指定可执行文件路径。凭据由 CLI OAuth profile 管理，脚本不读取 CLI 凭据。部署通过 [FC 3.0 官方 API](https://help.aliyun.com/zh/functioncompute/api-fc-2023-03-30-createfunction) 的 REST 请求实现，官方 [CLI `--body-file`](https://www.alibabacloud.com/help/en/cli/command-line-options) 保证模型 Key 和访问口令不出现在命令参数中。私有请求文件仅暂存在 Git 忽略的 `artifacts/fc/`，完成后删除；CLI 原始响应与错误不打印，避免平台返回环境变量值。
+实际部署默认使用 [官方 FC 3.0 SDK](https://github.com/aliyun/alibabacloud-typescript-sdk/tree/master/fc-20230330)，从环境变量读取标准 RAM 凭据；没有标准凭据时，只在内存中提取已授权 CLI profile 的临时凭据，不修改 profile。可用 `--transport cli` 切回 CLI，默认位置为 `artifacts/tools/aliyun-cli/aliyun.exe`。模型 Key、云凭据和口令不出现在命令参数中；私有请求文件暂存于 Git 忽略的 `artifacts/fc/`，完成后删除；SDK/CLI 原始响应与错误不打印，避免平台回显环境变量值。
+
+FC 的 OAuth 兼容缺口见[官方 CLI issue #1271](https://github.com/aliyun/aliyun-cli/issues/1271)。本次实测 OAuth 身份验证成功，但 FC 管理 API 在 CLI 和官方 SDK 中均报告缺少 SecurityToken，不能通过重新增加 FC 权限解决。主账号身份也不能直接执行 STS AssumeRole。需要标准 RAM 凭据时，在本机 `.env` 私下配置 `ALIBABA_CLOUD_ACCESS_KEY_ID`、`ALIBABA_CLOUD_ACCESS_KEY_SECRET`，临时 STS 凭据还需 `ALIBABA_CLOUD_SECURITY_TOKEN`；不在聊天中发送。SDK 优先使用这组环境变量，临时凭据过期后需更新，原 OAuth profile 保持不变。
 
 若 `.env` 没有访问口令，脚本生成随机口令并存到本机 `artifacts/fc/closet-access-token.txt`，不会打印口令。部署成功的 HTTPS 地址记录在 `artifacts/fc/deployment-result.json`，网页“数据与设置”填写该地址及口令；模型 Key 不填到网页。
 

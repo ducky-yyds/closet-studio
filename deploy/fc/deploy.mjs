@@ -5,6 +5,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { artifactRoot, projectRoot, buildFcArchive } from './build.mjs';
 import { flatlayConfiguration } from '../../server/flatlay-service.mjs';
+import { createFcSdkTransport } from './sdk.mjs';
 
 function option(args, name, fallback) {
   const index = args.indexOf(name);
@@ -90,6 +91,9 @@ export async function deployFc(args = [], env = process.env, { runCliImpl = runC
   try { await access(defaultExecutable); fallbackExecutable = defaultExecutable; } catch {}
   const executable = option(args, '--cli', env.ALIYUN_CLI_PATH || fallbackExecutable);
   const region = built.manifest.region;
+  const transport = option(args, '--transport', 'sdk');
+  if (!['sdk', 'cli'].includes(transport)) throw new Error('Invalid deployment transport.');
+  const execute = transport === 'sdk' && runCliImpl === runCli ? await createFcSdkTransport({ profile, region, env, securityTokenQuery: args.includes('--security-token-query'), fcTokenHeader: args.includes('--fc-security-token-header') }) : runCliImpl;
   const name = built.manifest.function.functionName;
   const route = `/2023-03-30/functions/${encodeURIComponent(name)}`;
   const triggerRoute = `${route}/triggers/${encodeURIComponent(built.manifest.trigger.triggerName)}`;
@@ -103,7 +107,7 @@ export async function deployFc(args = [], env = process.env, { runCliImpl = runC
       await writeFile(bodyPath, JSON.stringify(body), { flag: 'wx', mode: 0o600 });
       temporaryFiles.push(bodyPath);
     }
-    return runCliImpl(executable, cloudCliArguments(method, route, { profile, region, bodyPath }));
+    return execute(executable, cloudCliArguments(method, route, { profile, region, bodyPath }));
   }
   try {
     let exists = true;

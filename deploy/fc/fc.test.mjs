@@ -7,11 +7,37 @@ import { pathToFileURL } from 'node:url';
 import { once } from 'node:events';
 import { fcManifest, buildFcArchive } from './build.mjs';
 import { buildFunctionPayload, cloudCliArguments, deployFc } from './deploy.mjs';
+import { credentialFromProfile, credentialFromEnvironment, createFcSdkTransport } from './sdk.mjs';
 
 const mockKey = 'mock-model-key-not-a-real-secret';
 const mockToken = 'mock-personal-access-token';
 const mockEnv = { DASHSCOPE_API_KEY: mockKey, FLATLAY_ACCESS_TOKEN: mockToken };
 const mockUrl = 'https://closet-unit-test.cn-beijing.fcapp.run';
+
+test('SDK credential adapter extracts only valid temporary OAuth credentials without modifying the CLI profile', () => {
+  const profile = { profiles: [{ name: 'closet-fc', mode: 'OAuth', access_key_id: 'mock-sts-id', access_key_secret: 'mock-sts-secret', sts_token: 'mock-sts-token', sts_expiration: Math.floor(Date.now() / 1000) + 3600, oauth_refresh_token: 'mock-refresh-do-not-pass' }] };
+  const original = JSON.stringify(profile);
+  const credential = credentialFromProfile(profile, 'closet-fc');
+  assert.deepEqual(Object.keys(credential), ['accessKeyId', 'accessKeySecret', 'securityToken']);
+  assert.equal(JSON.stringify(credential).includes('mock-refresh-do-not-pass'), false);
+  assert.equal(JSON.stringify(profile), original);
+  assert.throws(() => credentialFromProfile({ profiles: [{ ...profile.profiles[0], sts_token: '' }] }, 'closet-fc'), failure => failure.code === 'OAUTH_CREDENTIAL_MISSING');
+  assert.throws(() => credentialFromProfile({ profiles: [{ ...profile.profiles[0], sts_expiration: 1 }] }, 'closet-fc'), failure => failure.code === 'OAUTH_CREDENTIAL_EXPIRED');
+});
+
+test('SDK accepts standard RAM AK or STS env credentials without loading or changing the OAuth profile', async () => {
+  assert.equal(credentialFromEnvironment({}), null);
+  const standard = { ALIBABA_CLOUD_ACCESS_KEY_ID: 'mock-standard-id', ALIBABA_CLOUD_ACCESS_KEY_SECRET: 'mock-standard-secret', ALIBABA_CLOUD_SECURITY_TOKEN: 'mock-standard-sts' };
+  assert.deepEqual(credentialFromEnvironment(standard), { accessKeyId: 'mock-standard-id', accessKeySecret: 'mock-standard-secret', securityToken: 'mock-standard-sts' });
+  const { ALIBABA_CLOUD_SECURITY_TOKEN: _token, ...ak } = standard;
+  assert.equal(credentialFromEnvironment(ak).securityToken, undefined);
+  assert.throws(() => credentialFromEnvironment({ ALIBABA_CLOUD_SECURITY_TOKEN: 'only-token' }), failure => failure.code === 'CLOUD_CREDENTIAL_MISSING');
+  assert.throws(() => credentialFromEnvironment({ ...standard, ALIBABA_CLOUD_ACCESS_KEY_SECRET: '' }), failure => failure.code === 'CLOUD_CREDENTIAL_MISSING');
+  // Creating the transport never sends a request. Missing configPath proves env
+  // credentials take precedence and don't require another OAuth login.
+  assert.equal(typeof await createFcSdkTransport({ env: standard, configPath: '/deliberately-missing/oauth/config.json' }), 'function');
+  assert.equal(typeof await createFcSdkTransport({ env: ak, configPath: '/deliberately-missing/oauth/config.json' }), 'function');
+});
 
 async function temporary(t) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'closet-fc-test-'));

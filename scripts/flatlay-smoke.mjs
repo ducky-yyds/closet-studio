@@ -145,6 +145,22 @@ try {
   });
   await writeFile(path.join(output, 'mock-flatlay.png'), Buffer.from(mockImage.split(',')[1], 'base64'));
 
+  await check('the public service default can be overridden and explicitly disconnected without any request', async () => {
+    const result = await page.evaluate(async proxy => {
+      const service = await import('./src/flatlay.js');
+      const config = await import('./src/config.js');
+      const initial = service.getFlatlayConfig().url;
+      service.setFlatlayConfig({ url: proxy });
+      const overridden = service.getFlatlayConfig().url;
+      service.setFlatlayConfig({ url: '' });
+      return { initial, expected: service.normalizeServiceUrl(config.DEFAULT_FLATLAY_SERVICE_URL), overridden, disconnected: service.getFlatlayConfig().url };
+    }, proxyBase);
+    assert.equal(result.initial, result.expected);
+    assert.equal(result.overridden, proxyBase);
+    assert.equal(result.disconnected, '');
+    assert.equal(posts.length, 0);
+  });
+
   await check('unconfigured upload keeps the original and makes no cloud or local model requests', async () => {
     const before = posts.length;
     await openEditor('未配置原图', page, true);

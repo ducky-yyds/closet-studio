@@ -20,6 +20,9 @@
     "fc:deploy": "node --env-file-if-exists=.env deploy/fc/deploy.mjs"
   },
   "devDependencies": {
+    "@alicloud/fc20230330": "^4.8.2",
+    "@alicloud/openapi-client": "^0.4.15",
+    "@alicloud/tea-util": "^1.4.11",
     "playwright": "^1.63.0"
   },
   "dependencies": {
