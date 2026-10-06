@@ -11,11 +11,13 @@
     "dev": "node scripts/serve.mjs",
     "preview": "node scripts/serve.mjs --dir dist",
     "build": "node scripts/package.mjs",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs deploy/fc/*.test.mjs",
     "test:browser": "node scripts/smoke.mjs",
     "test:storage": "node scripts/storage-smoke.mjs",
     "vendor:ai": "node scripts/vendor-ai.mjs",
-    "dev:api": "node --env-file-if-exists=.env server/flatlay-server.mjs"
+    "dev:api": "node --env-file-if-exists=.env server/flatlay-server.mjs",
+    "fc:build": "node deploy/fc/build.mjs",
+    "fc:deploy": "node --env-file-if-exists=.env deploy/fc/deploy.mjs"
   },
   "devDependencies": {
     "playwright": "^1.63.0"

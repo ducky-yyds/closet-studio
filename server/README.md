@@ -32,3 +32,7 @@ API 密钥始终只在服务端环境变量中；不要填写到前端，不要�
 ```powershell
 node --test tests/flatlay-server.test.mjs
 ```
+
+## 阿里云函数计算
+
+国内公网代理的部署入口和说明位于 [deploy/fc/README.md](../deploy/fc/README.md)。可用阿里云 CLI OAuth 浏览器授权后自动部署，或上传不含密钥的 ZIP 到控制台。配置使用 Nodejs22 官方公共层、`0.0.0.0:9000`、180 秒函数超时、固定 GitHub Pages Origin 和必需的个人访问口令。脚本在显式 `--apply` 前只准备部署包，不调用云 API。

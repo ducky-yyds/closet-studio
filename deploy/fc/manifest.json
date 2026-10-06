@@ -1,0 +1,37 @@
+{
+  "region": "cn-beijing",
+  "function": {
+    "functionName": "closet-flatlay",
+    "description": "Closet Studio garment flatlay proxy",
+    "runtime": "custom.debian12",
+    "handler": "entry.handler",
+    "memorySize": 512,
+    "cpu": 0.5,
+    "diskSize": 512,
+    "timeout": 180,
+    "instanceConcurrency": 1,
+    "internetAccess": true,
+    "disableInjectCredentials": "All",
+    "layers": ["acs:fc:cn-beijing:official:layers/Nodejs22/versions/3"],
+    "customRuntimeConfig": {
+      "command": ["/opt/nodejs22/bin/node"],
+      "args": ["/code/entry.mjs"],
+      "port": 9000
+    },
+    "environmentVariables": {
+      "FLATLAY_PROVIDER": "dashscope",
+      "FLATLAY_MODEL": "qwen-image-edit-plus",
+      "FLATLAY_HOST": "0.0.0.0",
+      "FLATLAY_PORT": "9000",
+      "ALLOWED_ORIGINS": "https://ducky-yyds.github.io",
+      "PATH": "/opt/nodejs22/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin"
+    }
+  },
+  "trigger": {
+    "triggerName": "closet-http",
+    "triggerType": "http",
+    "description": "HTTPS entry protected by the proxy access token",
+    "qualifier": "LATEST",
+    "triggerConfig": "{\"authType\":\"anonymous\",\"disableURLInternet\":false,\"methods\":[\"GET\",\"POST\",\"OPTIONS\"]}"
+  }
+}
