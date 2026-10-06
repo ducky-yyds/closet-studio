@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700" fill="none">
+  <defs><linearGradient id="fabric" x1="190" y1="200" x2="434" y2="528" gradientUnits="userSpaceOnUse"><stop stop-color="#d0bda0"/><stop offset=".6" stop-color="#b79f7d"/><stop offset="1" stop-color="#a38b6b"/></linearGradient></defs>
+  <ellipse cx="300" cy="553" rx="157" ry="11" fill="#67533d" opacity=".06"/>
+  <path d="M233 193h134l80 332q-144 25-294 0Z" fill="url(#fabric)" stroke="#aa9273" stroke-width="2"/>
+  <path d="M233 193h134l5 27q-71 8-144 0Z" fill="#b8a081" stroke="#a38b6c" stroke-width="2"/>
+  <path d="m234 222-69 301 27 4 52-304Zm30 2-39 306 27 2 26-307Zm28 1-11 308 28 1 1-309Zm34 0 19 306 29-2-35-305Zm31-2 58 302 27-3-70-300Z" fill="#92795b" opacity=".35"/>
+  <path d="m245 224-52 302m85-301-24 306m57-306-2 307m30-307 35 303m-4-305 69 298" stroke="#e4d1b4" stroke-opacity=".7" stroke-width="3"/>
+  <path d="M156 514q149 23 288 0" stroke="#e2cdb0" stroke-width="2"/>
+  <path d="M239 205h118" stroke="#e3cfb0" stroke-opacity=".6" stroke-width="2"/>
+  <path d="m260 232-37 265m87-265 2 267m16-267 23 265" stroke="#f0dfc1" stroke-opacity=".16" stroke-width="6"/>
+</svg>

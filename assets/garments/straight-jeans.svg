@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700" fill="none">
+  <defs><linearGradient id="denim" x1="210" y1="150" x2="400" y2="540" gradientUnits="userSpaceOnUse"><stop stop-color="#7893a6"/><stop offset=".55" stop-color="#577891"/><stop offset="1" stop-color="#415e76"/></linearGradient><pattern id="weave" width="7" height="7" patternUnits="userSpaceOnUse"><path d="m-2 7 9-9m0 9 9-9" stroke="#dae8ed" stroke-opacity=".09" stroke-width="1"/></pattern><clipPath id="shape"><path d="M212 151h176l11 112-31 285h-84l14-237-16 1-16 236h-82l15-285Z"/></clipPath></defs>
+  <ellipse cx="287" cy="565" rx="111" ry="10" fill="#304450" opacity=".07"/>
+  <path d="M212 151h176l11 112-31 285h-84l14-237-16 1-16 236h-82l15-285Z" fill="url(#denim)" stroke="#415f75" stroke-width="2"/>
+  <rect x="180" y="150" width="230" height="410" fill="url(#weave)" clip-path="url(#shape)"/>
+  <path d="M211 151h177l3 25H208Z" fill="#4d6a81" stroke="#354f64" stroke-width="2"/>
+  <path d="M219 182q-4 52 52 58m106-58q4 52-52 58M297 178v97q-1 25-19 37" stroke="#c0b48f" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M304 178v95q0 19-15 29M286 151v25m-57-25-2 26m145-26 3 26" stroke="#344f64" stroke-width="4"/>
+  <circle cx="306" cy="163" r="4" fill="#c1b096" stroke="#867e69" stroke-width="1.5"/>
+  <path d="m235 256-19 256m151-256-29 256" stroke="#aec5d0" stroke-opacity=".4" stroke-width="13" stroke-linecap="round"/>
+  <path d="m203 268-15 263m203-263-28 263" stroke="#c7bb96" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="m184 529 83 1-1 18h-82Zm101 1 85-1-2 19h-84Z" fill="#365269"/>
+  <path d="M200 537h58m35 0h68" stroke="#b9ad88" stroke-width="1.5" stroke-dasharray="4 3"/>
+</svg>

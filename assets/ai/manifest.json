@@ -1,0 +1,28 @@
+{
+  "model": "U2NetP",
+  "modelSource": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx",
+  "modelMD5": "8e83ca70e441ab06c318d82300c84806",
+  "runtimeVersion": "1.23.2",
+  "files": [
+    {
+      "path": "assets/vendor/onnxruntime/ort.wasm.bundle.min.mjs",
+      "bytes": 68628,
+      "sha256": "cace3b98bee45c1c40ed04e07b984fb66012acacb702e6aecd9008239bf35e99"
+    },
+    {
+      "path": "assets/vendor/onnxruntime/ort-wasm-simd-threaded.mjs",
+      "bytes": 20321,
+      "sha256": "90a557d15c02bac4504d95b67f431d8594635ed2a0a62a7f2cd83d090ff91d3e"
+    },
+    {
+      "path": "assets/vendor/onnxruntime/ort-wasm-simd-threaded.wasm",
+      "bytes": 11905541,
+      "sha256": "45eaee27761ad883742a8d4b8fce1538d60ce43b51adf1726fafccc59b8c1a15"
+    },
+    {
+      "path": "assets/ai/u2netp.onnx",
+      "bytes": 4574861,
+      "sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8"
+    }
+  ]
+}

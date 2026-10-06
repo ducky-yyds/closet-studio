@@ -1,0 +1,12 @@
+{
+  // 密钥和个人访问口令通过平台 secret 配置；该文件不会自动部署。
+  "name": "closet-flatlay",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-06",
+  "vars": {
+    "FLATLAY_PROVIDER": "dashscope",
+    "FLATLAY_MODEL": "qwen-image-edit-plus",
+    "ALLOWED_ORIGINS": "http://127.0.0.1:4173,http://localhost:4173,https://ducky-yyds.github.io"
+  },
+  "observability": { "enabled": false }
+}

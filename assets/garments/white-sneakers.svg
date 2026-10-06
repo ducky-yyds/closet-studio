@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700" fill="none">
+  <defs><linearGradient id="leather" x1="171" y1="310" x2="459" y2="456" gradientUnits="userSpaceOnUse"><stop stop-color="#fffefa"/><stop offset=".6" stop-color="#e5e7de"/><stop offset="1" stop-color="#c6ccc1"/></linearGradient><linearGradient id="sole" x1="150" y1="420" x2="454" y2="478" gradientUnits="userSpaceOnUse"><stop stop-color="#e8e6d9"/><stop offset="1" stop-color="#bfc4b6"/></linearGradient></defs>
+  <ellipse cx="300" cy="500" rx="165" ry="13" fill="#4c5649" opacity=".07"/>
+  <g opacity=".87" transform="translate(16 -90) rotate(-9 300 400)">
+    <path d="M154 412q12-17 60-26l81-87 44 14 12 66 80 29q39 15 35 48l-7 12H172q-32-3-18-56Z" fill="url(#leather)" stroke="#bfc6b7" stroke-width="2"/>
+    <path d="M155 446q128 23 309-3l-2 22q-10 15-48 15H184q-26-3-29-18Z" fill="url(#sole)" stroke="#b3bcaa" stroke-width="2"/>
+    <path d="m276 325 58 20m-74-4 74 23m-90-6 90 23m-105-6 105 25" stroke="#b5c2ad" stroke-width="7" stroke-linecap="round"/>
+    <path d="m276 323 58 20m-74-4 74 23m-90-6 90 23m-105-6 105 25" stroke="#fcfcf5" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <path d="M133 408q18-14 65-19l95-77 42 23 2 51 87 32q41 15 42 48l-8 15H157q-35-8-24-73Z" fill="url(#leather)" stroke="#b9c2b1" stroke-width="2"/>
+  <path d="M134 450q145 26 331-2l-1 26q-12 17-50 17H164q-27-6-30-22Z" fill="url(#sole)" stroke="#aebaa5" stroke-width="2"/>
+  <path d="M143 465q151 23 313-2" stroke="#f9f7e9" stroke-width="3"/>
+  <path d="m291 317-89 76 47 25 87-34-10-45" fill="#f2f3e9" stroke="#cad1c1" stroke-width="2"/>
+  <path d="m281 338 49 12m-66 2 65 18m-82-3 81 20m-99-3 90 22" stroke="#b7c1ae" stroke-width="7" stroke-linecap="round"/>
+  <path d="m281 336 49 12m-66 2 65 18m-82-3 81 20m-99-3 90 22" stroke="#fffef7" stroke-width="4" stroke-linecap="round"/>
+  <path d="M153 406q-9 18-4 39m52-43q-20 11-28 45m171-55q3 33 32 49m-40-57 79 32" stroke="#c2cbb8" stroke-width="2"/>
+  <path d="M384 426q27 7 46 20" stroke="#fffff7" stroke-width="5" stroke-linecap="round"/>
+</svg>
